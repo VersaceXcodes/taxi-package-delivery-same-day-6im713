@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748361257750,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_SenderRegistration",
+      "version": "1748361257053"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/UV_SenderRegistration.tsx",
+      "type": "text",
+      "size": 14953,
+      "dependencies": false
+    }
+  ]
+}

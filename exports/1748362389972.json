@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748362389972,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_DeliveryHistory",
+      "version": "latest"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/UV_DeliveryHistory.tsx",
+      "type": "text",
+      "size": 26581,
+      "dependencies": false
+    }
+  ]
+}

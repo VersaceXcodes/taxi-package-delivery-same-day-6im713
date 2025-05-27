@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748361659372,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_SenderDashboard",
+      "version": "latest"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/UV_SenderDashboard.tsx",
+      "type": "text",
+      "size": 41512,
+      "dependencies": false
+    }
+  ]
+}

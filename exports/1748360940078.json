@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748360940078,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_Login",
+      "version": "1748360939614"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/UV_Login.tsx",
+      "type": "text",
+      "size": 25876,
+      "dependencies": false
+    }
+  ]
+}

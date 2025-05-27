@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748360625019,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "GV_Footer",
+      "version": "latest"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/GV_Footer.tsx",
+      "type": "text",
+      "size": 20737,
+      "dependencies": false
+    }
+  ]
+}

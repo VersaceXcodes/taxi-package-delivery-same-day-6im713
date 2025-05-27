@@ -1,0 +1,21 @@
+{
+  "timestamp": 1748286770770,
+  "operation": {
+    "id": "settings:config:package"
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/backend/package.json",
+      "type": "text",
+      "size": 887,
+      "dependencies": true
+    },
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/backend/.env",
+      "type": "text",
+      "size": 716,
+      "dependencies": false
+    }
+  ]
+}

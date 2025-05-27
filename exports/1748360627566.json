@@ -1,0 +1,15 @@
+{
+  "timestamp": 1748360627566,
+  "operation": {
+    "id": "settings:config:package"
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/package.json",
+      "type": "text",
+      "size": 2973,
+      "dependencies": true
+    }
+  ]
+}

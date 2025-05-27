@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748360796768,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "GV_ErrorModal",
+      "version": "latest"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/GV_ErrorModal.tsx",
+      "type": "text",
+      "size": 14321,
+      "dependencies": false
+    }
+  ]
+}

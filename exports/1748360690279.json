@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748360690279,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "GV_LoadingOverlay",
+      "version": "latest"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/GV_LoadingOverlay.tsx",
+      "type": "text",
+      "size": 8585,
+      "dependencies": false
+    }
+  ]
+}

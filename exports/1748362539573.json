@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748362539573,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_PaymentCheckout",
+      "version": "latest"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/UV_PaymentCheckout.tsx",
+      "type": "text",
+      "size": 31390,
+      "dependencies": false
+    }
+  ]
+}

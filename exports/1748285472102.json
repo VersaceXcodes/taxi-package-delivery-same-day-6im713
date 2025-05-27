@@ -1,0 +1,15 @@
+{
+  "timestamp": 1748285472102,
+  "operation": {
+    "id": "backend:specifications:openapi"
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/backend/openapi.yaml",
+      "type": "text",
+      "size": 80047,
+      "dependencies": false
+    }
+  ]
+}

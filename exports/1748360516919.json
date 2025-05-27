@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748360516919,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_CourierVerification",
+      "version": "1748359067453"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/UV_CourierVerification.tsx",
+      "type": "text",
+      "size": 27897,
+      "dependencies": false
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748289792058,
+  "operation": {
+    "id": "webapp:react:root",
+    "refs": {
+      "id": "app",
+      "version": "1748289791664"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/App.tsx",
+      "type": "text",
+      "size": 10083,
+      "dependencies": false
+    }
+  ]
+}

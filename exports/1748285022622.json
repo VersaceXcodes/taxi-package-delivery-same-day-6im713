@@ -1,0 +1,15 @@
+{
+  "timestamp": 1748285022622,
+  "operation": {
+    "id": "db:postgres"
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/backend/db.sql",
+      "type": "text",
+      "size": 53991,
+      "dependencies": false
+    }
+  ]
+}

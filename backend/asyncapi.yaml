@@ -1,0 +1,1091 @@
+asyncapi: 2.0.0
+info:
+  title: QuickCourier Realtime Events API
+  version: 1.0.0
+  description: Real-time WebSocket events for the QuickCourier same-day delivery platform
+  contact:
+    name: QuickCourier Development Team
+    email: dev@quickcourier.com
+servers:
+  development:
+    url: ws://localhost:3000
+    protocol: ws
+    description: Development WebSocket server
+channels:
+  location_updates:
+    description: Real-time courier location tracking updates
+    subscribe:
+      message:
+        $ref: "#/components/messages/LocationUpdateMessage"
+    publish:
+      message:
+        $ref: "#/components/messages/LocationUpdateRequestMessage"
+  order_status_changes:
+    description: Order status change notifications
+    subscribe:
+      message:
+        $ref: "#/components/messages/OrderStatusChangeMessage"
+    publish:
+      message:
+        $ref: "#/components/messages/OrderStatusChangeRequestMessage"
+  messages:
+    description: Real-time messaging between users
+    subscribe:
+      message:
+        $ref: "#/components/messages/MessageReceivedMessage"
+    publish:
+      message:
+        $ref: "#/components/messages/SendMessageMessage"
+  courier_assignments:
+    description: Courier assignment notifications and responses
+    subscribe:
+      message:
+        $ref: "#/components/messages/CourierAssignmentMessage"
+    publish:
+      message:
+        $ref: "#/components/messages/CourierAssignmentResponseMessage"
+  notifications:
+    description: Push notifications for various system events
+    subscribe:
+      message:
+        $ref: "#/components/messages/NotificationPushMessage"
+    publish:
+      message:
+        $ref: "#/components/messages/NotificationReadMessage"
+  eta_updates:
+    description: Real-time ETA updates based on traffic and location
+    subscribe:
+      message:
+        $ref: "#/components/messages/EtaUpdateMessage"
+  system_alerts:
+    description: System-wide alerts and announcements
+    subscribe:
+      message:
+        $ref: "#/components/messages/SystemAlertMessage"
+  courier_availability:
+    description: Courier availability status updates
+    subscribe:
+      message:
+        $ref: "#/components/messages/CourierAvailabilityMessage"
+    publish:
+      message:
+        $ref: "#/components/messages/CourierAvailabilityUpdateMessage"
+  order_tracking:
+    description: Comprehensive order tracking updates
+    subscribe:
+      message:
+        $ref: "#/components/messages/OrderTrackingMessage"
+  payment_status:
+    description: Real-time payment status updates
+    subscribe:
+      message:
+        $ref: "#/components/messages/PaymentStatusMessage"
+components:
+  messages:
+    LocationUpdateMessage:
+      name: location_update
+      title: Location Update
+      summary: Courier location update broadcast
+      payload:
+        $ref: "#/components/schemas/LocationUpdatePayload"
+    LocationUpdateRequestMessage:
+      name: location_update_request
+      title: Location Update Request
+      summary: Request to update courier location
+      payload:
+        $ref: "#/components/schemas/LocationUpdateRequestPayload"
+    OrderStatusChangeMessage:
+      name: order_status_change
+      title: Order Status Change
+      summary: Order status change notification
+      payload:
+        $ref: "#/components/schemas/OrderStatusChangePayload"
+    OrderStatusChangeRequestMessage:
+      name: order_status_change_request
+      title: Order Status Change Request
+      summary: Request to change order status
+      payload:
+        $ref: "#/components/schemas/OrderStatusChangeRequestPayload"
+    MessageReceivedMessage:
+      name: message_received
+      title: Message Received
+      summary: New message received notification
+      payload:
+        $ref: "#/components/schemas/MessageReceivedPayload"
+    SendMessageMessage:
+      name: send_message
+      title: Send Message
+      summary: Send message request
+      payload:
+        $ref: "#/components/schemas/SendMessagePayload"
+    CourierAssignmentMessage:
+      name: courier_assignment
+      title: Courier Assignment
+      summary: Courier assignment notification
+      payload:
+        $ref: "#/components/schemas/CourierAssignmentPayload"
+    CourierAssignmentResponseMessage:
+      name: courier_assignment_response
+      title: Courier Assignment Response
+      summary: Courier assignment response
+      payload:
+        $ref: "#/components/schemas/CourierAssignmentResponsePayload"
+    NotificationPushMessage:
+      name: notification_push
+      title: Notification Push
+      summary: Push notification delivery
+      payload:
+        $ref: "#/components/schemas/NotificationPushPayload"
+    NotificationReadMessage:
+      name: notification_read
+      title: Notification Read
+      summary: Mark notification as read
+      payload:
+        $ref: "#/components/schemas/NotificationReadPayload"
+    EtaUpdateMessage:
+      name: eta_update
+      title: ETA Update
+      summary: Estimated time of arrival update
+      payload:
+        $ref: "#/components/schemas/EtaUpdatePayload"
+    SystemAlertMessage:
+      name: system_alert
+      title: System Alert
+      summary: System-wide alert notification
+      payload:
+        $ref: "#/components/schemas/SystemAlertPayload"
+    CourierAvailabilityMessage:
+      name: courier_availability_status
+      title: Courier Availability Status
+      summary: Courier availability status broadcast
+      payload:
+        $ref: "#/components/schemas/CourierAvailabilityPayload"
+    CourierAvailabilityUpdateMessage:
+      name: courier_availability_update
+      title: Courier Availability Update
+      summary: Update courier availability status
+      payload:
+        $ref: "#/components/schemas/CourierAvailabilityUpdatePayload"
+    OrderTrackingMessage:
+      name: order_tracking_update
+      title: Order Tracking Update
+      summary: Comprehensive order tracking information
+      payload:
+        $ref: "#/components/schemas/OrderTrackingPayload"
+    PaymentStatusMessage:
+      name: payment_status_update
+      title: Payment Status Update
+      summary: Real-time payment status change
+      payload:
+        $ref: "#/components/schemas/PaymentStatusPayload"
+  schemas:
+    LocationUpdatePayload:
+      type: object
+      required:
+        - event
+        - order_id
+        - courier
+      properties:
+        event:
+          type: string
+          enum:
+            - location_update
+        order_id:
+          type: string
+          description: Unique order identifier
+        courier:
+          type: object
+          required:
+            - location
+            - timestamp
+          properties:
+            location:
+              $ref: "#/components/schemas/LocationData"
+            eta_update:
+              type: string
+              format: date-time
+              description: Updated estimated delivery time
+            timestamp:
+              type: string
+              format: date-time
+            battery_level:
+              type: number
+              minimum: 0
+              maximum: 100
+            speed:
+              type: number
+              minimum: 0
+              description: Speed in km/h
+            heading:
+              type: number
+              minimum: 0
+              maximum: 360
+              description: Direction in degrees
+    LocationUpdateRequestPayload:
+      type: object
+      required:
+        - event
+        - order_id
+        - location
+      properties:
+        event:
+          type: string
+          enum:
+            - location_update
+        order_id:
+          type: string
+        location:
+          $ref: "#/components/schemas/LocationData"
+        accuracy:
+          type: number
+          description: GPS accuracy in meters
+        speed:
+          type: number
+          minimum: 0
+        heading:
+          type: number
+          minimum: 0
+          maximum: 360
+        timestamp:
+          type: string
+          format: date-time
+        battery_level:
+          type: number
+          minimum: 0
+          maximum: 100
+    LocationData:
+      type: object
+      required:
+        - latitude
+        - longitude
+      properties:
+        latitude:
+          type: number
+          minimum: -90
+          maximum: 90
+        longitude:
+          type: number
+          minimum: -180
+          maximum: 180
+        accuracy:
+          type: number
+          minimum: 0
+          description: GPS accuracy in meters
+    OrderStatusChangePayload:
+      type: object
+      required:
+        - event
+        - order_id
+        - order_number
+        - status
+      properties:
+        event:
+          type: string
+          enum:
+            - order_status_change
+        order_id:
+          type: string
+        order_number:
+          type: string
+        status:
+          type: object
+          required:
+            - current
+            - timestamp
+          properties:
+            current:
+              type: string
+              enum:
+                - pending
+                - courier_assigned
+                - pickup_in_progress
+                - in_transit
+                - delivered
+                - cancelled
+                - failed
+            previous:
+              type: string
+              enum:
+                - pending
+                - courier_assigned
+                - pickup_in_progress
+                - in_transit
+                - delivered
+                - cancelled
+                - failed
+            timestamp:
+              type: string
+              format: date-time
+            changed_by:
+              type: string
+              description: User ID who changed the status
+            notes:
+              type: string
+              description: Additional status change notes
+        estimated_times:
+          type: object
+          properties:
+            pickup:
+              type: string
+              format: date-time
+            delivery:
+              type: string
+              format: date-time
+        courier_info:
+          type: object
+          properties:
+            courier_id:
+              type: string
+            name:
+              type: string
+            phone:
+              type: string
+            rating:
+              type: number
+              minimum: 0
+              maximum: 5
+        location:
+          $ref: "#/components/schemas/LocationData"
+    OrderStatusChangeRequestPayload:
+      type: object
+      required:
+        - event
+        - order_id
+        - new_status
+      properties:
+        event:
+          type: string
+          enum:
+            - order_status_change
+        order_id:
+          type: string
+        new_status:
+          type: string
+          enum:
+            - pending
+            - courier_assigned
+            - pickup_in_progress
+            - in_transit
+            - delivered
+            - cancelled
+            - failed
+        previous_status:
+          type: string
+          enum:
+            - pending
+            - courier_assigned
+            - pickup_in_progress
+            - in_transit
+            - delivered
+            - cancelled
+            - failed
+        changed_by:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        notes:
+          type: string
+        location:
+          $ref: "#/components/schemas/LocationData"
+    MessageReceivedPayload:
+      type: object
+      required:
+        - event
+        - message_id
+        - order_id
+        - sender
+        - message
+      properties:
+        event:
+          type: string
+          enum:
+            - message_received
+        message_id:
+          type: string
+        order_id:
+          type: string
+        sender:
+          type: object
+          required:
+            - user_id
+            - name
+            - role
+          properties:
+            user_id:
+              type: string
+            name:
+              type: string
+            role:
+              type: string
+              enum:
+                - sender
+                - courier
+                - recipient
+                - system
+            profile_image_url:
+              type: string
+        message:
+          type: object
+          required:
+            - type
+            - content
+            - timestamp
+          properties:
+            type:
+              type: string
+              enum:
+                - text
+                - image
+                - quick_template
+                - system
+            content:
+              type: string
+            image_url:
+              type: string
+            template_type:
+              type: string
+              enum:
+                - im_here
+                - running_late
+                - please_call
+                - package_ready
+                - delivered_successfully
+            timestamp:
+              type: string
+              format: date-time
+            is_read:
+              type: boolean
+              default: false
+    SendMessagePayload:
+      type: object
+      required:
+        - event
+        - order_id
+        - recipient_id
+        - message_type
+        - content
+      properties:
+        event:
+          type: string
+          enum:
+            - send_message
+        order_id:
+          type: string
+        recipient_id:
+          type: string
+        message_type:
+          type: string
+          enum:
+            - text
+            - image
+            - quick_template
+        content:
+          type: string
+        image_url:
+          type: string
+        template_type:
+          type: string
+          enum:
+            - im_here
+            - running_late
+            - please_call
+            - package_ready
+            - delivered_successfully
+    CourierAssignmentPayload:
+      type: object
+      required:
+        - event
+        - assignment_id
+        - order
+        - response_deadline
+      properties:
+        event:
+          type: string
+          enum:
+            - courier_assignment
+        assignment_id:
+          type: string
+        order:
+          type: object
+          required:
+            - order_id
+            - order_number
+            - pickup_address
+            - delivery_address
+            - package_type
+            - urgency_level
+            - estimated_earnings
+          properties:
+            order_id:
+              type: string
+            order_number:
+              type: string
+            pickup_address:
+              type: string
+            delivery_address:
+              type: string
+            pickup_location:
+              $ref: "#/components/schemas/LocationData"
+            delivery_location:
+              $ref: "#/components/schemas/LocationData"
+            package_type:
+              type: string
+              enum:
+                - documents
+                - electronics
+                - clothing
+                - food
+                - fragile
+                - other
+            size_category:
+              type: string
+              enum:
+                - small
+                - medium
+                - large
+                - extra_large
+            urgency_level:
+              type: string
+              enum:
+                - asap
+                - 1_hour
+                - 2_hours
+                - 4_hours
+                - scheduled
+            estimated_earnings:
+              type: number
+              minimum: 0
+            estimated_duration:
+              type: number
+              minimum: 0
+              description: Estimated duration in minutes
+            special_instructions:
+              type: string
+            is_fragile:
+              type: boolean
+        response_deadline:
+          type: string
+          format: date-time
+        distance_to_pickup:
+          type: number
+          minimum: 0
+          description: Distance to pickup in kilometers
+        priority_score:
+          type: number
+          minimum: 0
+          description: Assignment priority score
+        sender_info:
+          type: object
+          properties:
+            name:
+              type: string
+            rating:
+              type: number
+              minimum: 0
+              maximum: 5
+    CourierAssignmentResponsePayload:
+      type: object
+      required:
+        - event
+        - assignment_id
+        - response
+      properties:
+        event:
+          type: string
+          enum:
+            - courier_assignment_response
+        assignment_id:
+          type: string
+        response:
+          type: string
+          enum:
+            - accept
+            - decline
+        decline_reason:
+          type: string
+          enum:
+            - too_far
+            - busy
+            - vehicle_issue
+            - other
+        decline_notes:
+          type: string
+        estimated_arrival:
+          type: string
+          format: date-time
+        current_location:
+          $ref: "#/components/schemas/LocationData"
+    NotificationPushPayload:
+      type: object
+      required:
+        - event
+        - notification
+      properties:
+        event:
+          type: string
+          enum:
+            - notification_push
+        notification:
+          type: object
+          required:
+            - id
+            - type
+            - title
+            - message
+            - timestamp
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+                - order_update
+                - message
+                - payment
+                - system
+                - marketing
+                - security
+            title:
+              type: string
+            message:
+              type: string
+            data:
+              type: object
+              description: Additional structured notification data
+            timestamp:
+              type: string
+              format: date-time
+            order_id:
+              type: string
+            priority:
+              type: string
+              enum:
+                - low
+                - medium
+                - high
+                - urgent
+              default: medium
+            action_required:
+              type: boolean
+              default: false
+            action_url:
+              type: string
+            expiry_time:
+              type: string
+              format: date-time
+    NotificationReadPayload:
+      type: object
+      required:
+        - event
+        - notification_id
+      properties:
+        event:
+          type: string
+          enum:
+            - mark_notification_read
+        notification_id:
+          type: string
+        read_timestamp:
+          type: string
+          format: date-time
+    EtaUpdatePayload:
+      type: object
+      required:
+        - event
+        - order_id
+        - estimates
+        - updated_at
+      properties:
+        event:
+          type: string
+          enum:
+            - eta_update
+        order_id:
+          type: string
+        estimates:
+          type: object
+          required:
+            - pickup_eta
+            - delivery_eta
+          properties:
+            pickup_eta:
+              type: string
+              format: date-time
+            delivery_eta:
+              type: string
+              format: date-time
+            total_duration:
+              type: number
+              minimum: 0
+              description: Total estimated duration in minutes
+            distance_remaining:
+              type: number
+              minimum: 0
+              description: Remaining distance in kilometers
+        traffic_conditions:
+          type: string
+          enum:
+            - light
+            - moderate
+            - heavy
+            - severe
+        route_optimization:
+          type: object
+          properties:
+            optimized_route:
+              type: boolean
+            alternative_routes_available:
+              type: boolean
+            route_duration_savings:
+              type: number
+              description: Time savings in minutes from route optimization
+        updated_at:
+          type: string
+          format: date-time
+        delay_reason:
+          type: string
+          enum:
+            - traffic
+            - weather
+            - vehicle_issue
+            - pickup_delay
+            - address_issue
+    SystemAlertPayload:
+      type: object
+      required:
+        - event
+        - alert
+      properties:
+        event:
+          type: string
+          enum:
+            - system_alert
+        alert:
+          type: object
+          required:
+            - id
+            - type
+            - severity
+            - title
+            - message
+            - timestamp
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+                - maintenance
+                - emergency
+                - service_disruption
+                - update
+                - weather
+                - security
+            severity:
+              type: string
+              enum:
+                - low
+                - medium
+                - high
+                - critical
+            title:
+              type: string
+            message:
+              type: string
+            affected_areas:
+              type: array
+              items:
+                type: string
+              description: List of affected geographic areas or service components
+            affected_services:
+              type: array
+              items:
+                type: string
+                enum:
+                  - delivery
+                  - payment
+                  - tracking
+                  - messaging
+                  - courier_assignment
+            estimated_resolution:
+              type: string
+              format: date-time
+            timestamp:
+              type: string
+              format: date-time
+            action_required:
+              type: boolean
+              default: false
+            workaround_available:
+              type: boolean
+              default: false
+            workaround_instructions:
+              type: string
+    CourierAvailabilityPayload:
+      type: object
+      required:
+        - event
+        - courier_id
+        - availability
+      properties:
+        event:
+          type: string
+          enum:
+            - courier_availability_status
+        courier_id:
+          type: string
+        availability:
+          type: object
+          required:
+            - is_available
+            - status
+            - last_update
+          properties:
+            is_available:
+              type: boolean
+            status:
+              type: string
+              enum:
+                - online
+                - offline
+                - on_break
+                - in_delivery
+                - unavailable
+            last_update:
+              type: string
+              format: date-time
+            break_duration:
+              type: number
+              minimum: 0
+              description: Break duration in minutes
+            break_start_time:
+              type: string
+              format: date-time
+            shift_start_time:
+              type: string
+              format: date-time
+            shift_end_time:
+              type: string
+              format: date-time
+            current_active_orders:
+              type: number
+              minimum: 0
+            max_concurrent_orders:
+              type: number
+              minimum: 1
+              default: 1
+        location:
+          $ref: "#/components/schemas/LocationData"
+        service_area:
+          type: string
+          description: Current service area identifier
+    CourierAvailabilityUpdatePayload:
+      type: object
+      required:
+        - event
+        - availability_status
+      properties:
+        event:
+          type: string
+          enum:
+            - courier_availability_update
+        availability_status:
+          type: string
+          enum:
+            - online
+            - offline
+            - on_break
+            - in_delivery
+            - unavailable
+        break_duration:
+          type: number
+          minimum: 0
+        current_location:
+          $ref: "#/components/schemas/LocationData"
+        shift_end_time:
+          type: string
+          format: date-time
+    OrderTrackingPayload:
+      type: object
+      required:
+        - event
+        - order_id
+        - tracking_info
+      properties:
+        event:
+          type: string
+          enum:
+            - order_tracking_update
+        order_id:
+          type: string
+        tracking_info:
+          type: object
+          required:
+            - status
+            - timeline
+            - location
+          properties:
+            status:
+              type: string
+              enum:
+                - pending
+                - courier_assigned
+                - pickup_in_progress
+                - in_transit
+                - delivered
+                - cancelled
+                - failed
+            timeline:
+              type: array
+              items:
+                type: object
+                required:
+                  - status
+                  - timestamp
+                properties:
+                  status:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+                  location:
+                    $ref: "#/components/schemas/LocationData"
+                  notes:
+                    type: string
+                  photo_url:
+                    type: string
+            location:
+              $ref: "#/components/schemas/LocationData"
+            estimated_times:
+              type: object
+              properties:
+                pickup:
+                  type: string
+                  format: date-time
+                delivery:
+                  type: string
+                  format: date-time
+            courier_info:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                phone:
+                  type: string
+                rating:
+                  type: number
+                  minimum: 0
+                  maximum: 5
+                photo_url:
+                  type: string
+                vehicle_info:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    make:
+                      type: string
+                    model:
+                      type: string
+                    color:
+                      type: string
+                    license_plate:
+                      type: string
+            package_info:
+              type: object
+              properties:
+                type:
+                  type: string
+                size:
+                  type: string
+                special_handling:
+                  type: boolean
+                photos:
+                  type: object
+                  properties:
+                    pickup:
+                      type: string
+                    delivery:
+                      type: string
+    PaymentStatusPayload:
+      type: object
+      required:
+        - event
+        - order_id
+        - payment_status
+      properties:
+        event:
+          type: string
+          enum:
+            - payment_status_update
+        order_id:
+          type: string
+        payment_status:
+          type: object
+          required:
+            - status
+            - timestamp
+          properties:
+            status:
+              type: string
+              enum:
+                - pending
+                - authorized
+                - processing
+                - completed
+                - failed
+                - refunded
+                - cancelled
+            previous_status:
+              type: string
+              enum:
+                - pending
+                - authorized
+                - processing
+                - completed
+                - failed
+                - refunded
+                - cancelled
+            timestamp:
+              type: string
+              format: date-time
+            transaction_id:
+              type: string
+            amount:
+              type: number
+              minimum: 0
+            currency:
+              type: string
+              default: USD
+            payment_method:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - credit_card
+                    - debit_card
+                    - paypal
+                    - apple_pay
+                    - google_pay
+                    - corporate_account
+                last_four:
+                  type: string
+                brand:
+                  type: string
+            failure_reason:
+              type: string
+            refund_info:
+              type: object
+              properties:
+                refund_amount:
+                  type: number
+                  minimum: 0
+                refund_reason:
+                  type: string
+                refunded_at:
+                  type: string
+                  format: date-time

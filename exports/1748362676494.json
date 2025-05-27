@@ -1,0 +1,19 @@
+{
+  "timestamp": 1748362676494,
+  "operation": {
+    "id": "webapp:react:views",
+    "refs": {
+      "id": "UV_RatingReview",
+      "version": "latest"
+    }
+  },
+  "projectId": "taxi-package-delivery-same-day",
+  "files": [
+    {
+      "path": "/mnt/data/taxi-package-delivery-same-day/vitereact/src/components/views/UV_RatingReview.tsx",
+      "type": "text",
+      "size": 24313,
+      "dependencies": false
+    }
+  ]
+}
